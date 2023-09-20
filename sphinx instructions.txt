@@ -13,7 +13,6 @@ your main project/library folder
 Next, edit the generate.bat file to make sure it points to your chosen interpreter
 
 
-
 Run the generate.bat file
 
 Make sure any changes are made to include information to your specific project in the build html files
