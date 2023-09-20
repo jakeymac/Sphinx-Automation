@@ -81,8 +81,6 @@ class Main:
         return list(filter(None, self.avoid_files_field.get("1.0",tk.END).split("\n")))
 
     def select_destination_folder_dialog(self):
-        folder_output = ""
-
         self.chosen_destination_folder = filedialog.askdirectory(initialdir="/")
         self.chosen_destination_label.configure(text=f"Folder chosen: {self.chosen_destination_folder}")
 
