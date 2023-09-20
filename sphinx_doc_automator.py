@@ -54,11 +54,7 @@ class Main:
         self.files_field.grid(row=2, column=0,columnspan=2)
 
         self.root.mainloop()
-
-    def check_if_exists(self):
-        print("Dir:")
-        print(os.listdir())
-        print(os.path.exists("RST Output Files"))
+        
     def read_avoid_file(self):
         files = ""
         with open("avoid.txt","r") as file:
@@ -162,4 +158,3 @@ class Main:
 
 
 main = Main()
-main.check_if_exists()
