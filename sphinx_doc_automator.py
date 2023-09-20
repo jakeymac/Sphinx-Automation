@@ -27,15 +27,25 @@ class Main:
                                             command=self.update_files_to_avoid)
         avoid_files_save_button.grid(row=2,pady=5)
 
-        self.chosen_folder = ""
+        self.chosen_source_folder = ""
+        self.chosen_destination_folder = ""
+
         choose_folder_frame = tk.Frame(self.root)
         choose_folder_frame.grid(row=1, column=1)
-        choose_folder_button = tk.Button(choose_folder_frame, text="Choose base folder",
-                                         command=self.select_folder_dialog)
-        choose_folder_button.grid(row=0)
 
-        self.chosen_folder_label = tk.Label(choose_folder_frame, text="No folder chosen")
-        self.chosen_folder_label.grid(row=1)
+        choose_source_folder_button = tk.Button(choose_folder_frame, text="Choose source folder",
+                                         command=self.select_source_folder_dialog)
+        choose_source_folder_button.grid(row=0)
+
+        self.chosen_source_folder_label = tk.Label(choose_folder_frame, text="No folder chosen")
+        self.chosen_source_folder_label.grid(row=1)
+
+        chosen_destination_folder_button = tk.Button(choose_folder_frame, text="Choose destination folder",
+                                                          command=self.select_destination_folder_dialog)
+        chosen_destination_folder_button.grid(row=2)
+
+        self.chosen_destination_label = tk.Label(choose_folder_frame, text="No folder chosen")
+        self.chosen_destination_label.grid(row=3)
 
         populate_button = tk.Button(self.root, text="Populate Files", command=self.populate_files)
         populate_button.grid(row=3, column=0,columnspan=2,pady=10)
@@ -70,24 +80,31 @@ class Main:
     def get_avoid_field_contents(self):
         return list(filter(None, self.avoid_files_field.get("1.0",tk.END).split("\n")))
 
-    def select_folder_dialog(self):
-        self.folder_output = ""
+    def select_destination_folder_dialog(self):
+        folder_output = ""
 
-        self.chosen_folder = filedialog.askdirectory(initialdir="/")
-        self.chosen_folder_label.configure(text=f"Folder chosen: {self.chosen_folder}")
+        self.chosen_destination_folder = filedialog.askdirectory(initialdir="/")
+        self.chosen_destination_label.configure(text=f"Folder chosen: {self.chosen_destination_folder}")
+
+
+    def select_source_folder_dialog(self):
+        folder_output = ""
+
+        self.chosen_source_folder = filedialog.askdirectory(initialdir="/")
+        self.chosen_source_folder_label.configure(text=f"Folder chosen: {self.chosen_source_folder}")
 
         self.files_field.delete("1.0", tk.END)
         # Scan for only the folders
         has_folders = False
         other_folder_contents = ""
         avoid = self.get_avoid_field_contents()
-        for entry in os.scandir(self.chosen_folder):
+        for entry in os.scandir(self.chosen_source_folder):
             if entry.name not in avoid:
                 if entry.is_dir():
-                    self.folder_output += entry.name + "\n"
+                    folder_output += entry.name + "\n"
                     for file in os.listdir(entry):
                         if file[-3:] == ".py" and file not in avoid:
-                            self.folder_output += file + "\n"
+                            folder_output += file + "\n"
                             has_folders = True
 
                 elif entry.is_file():
@@ -96,26 +113,23 @@ class Main:
 
         if has_folders:
             if other_folder_contents != "":
-                self.folder_output += f"Other\n{other_folder_contents}"
+                folder_output += f"Other\n{other_folder_contents}"
 
         else:
-            self.folder_output = other_folder_contents
+            folder_output = other_folder_contents
 
-        self.files_field.insert(tk.END, self.folder_output)
+        self.files_field.insert(tk.END, folder_output)
         self.files_field.update()
 
     def populate_files(self):
-        if self.chosen_folder == "":
+        if self.chosen_source_folder == "":
             tk_mb.showinfo(message="Error: no source folder chosen")
 
         else:
-            if not os.path.exists("RST Output Files"):
-                os.mkdir(f"{os.getcwd()}/RST Output Files")
-
             current_folder = ""
             current_output = ""
             file_name = ""
-            chosen_folder_final_dirs = self.chosen_folder.split("/")[-2:]
+            chosen_folder_final_dirs = self.chosen_source_folder.split("/")[-2:]
             prefix = f"{chosen_folder_final_dirs[0]}.{chosen_folder_final_dirs[1]}"
 
             for line in self.files_field.get("1.0", tk.END).split("\n"):
@@ -131,7 +145,7 @@ class Main:
                     else:
                         if file_name != "":
                             # Write to file
-                            with open(f"RST Output Files/{file_name}", "w+") as file:
+                            with open(f"{self.chosen_destination_folder}/{file_name}", "w+") as file:
                                 file.write(current_output)
 
                         file_name = f"{line}.rst"
@@ -139,7 +153,11 @@ class Main:
                         current_output = f".. _{file_name[0:-4]}:\n\n{line}\n{'-' * len(line)}\n"
 
             #Write last set of output to file
-            with open(f"RST Output Files/{file_name}", "w+") as file:
+            if file_name == "":
+                file_name = "documentation.rst"
+                current_output = (f"Documentation\n-------------\n{current_output}")
+
+            with open(f"{self.chosen_destination_folder}/{file_name}", "w+") as file:
                 file.write(current_output)
 
             tk_mb.showinfo(message="Files Populated")
