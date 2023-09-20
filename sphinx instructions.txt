@@ -1,0 +1,65 @@
+			
+##########################	
+Sphinx Documentation Guide
+##########################
+
+---------------
+Getting Started
+---------------
+
+First, copy the source folder and generate.bat file into a docs folder in 
+your main project/library folder
+
+Next, edit the generate.bat file to make sure it points to your chosen interpreter
+
+
+
+Run the generate.bat file
+
+Make sure any changes are made to include information to your specific project in the build html files
+
+Place folder and file names into a text file - see automation_source_example.txt
+
+Run the sphinx autodoc text automator 
+
+Copy and paste the .rst files from the output folder into the doc/source folder in your project. 
+
+Make sure to add those file names to index.rst's toc tree
+
+Make sure to make a few key stroke changes and save the rst files to make sure they get refreshed. 
+	This can even be just a press of the enter button.
+	
+Add :obj: to any data types for args or returns throughout all files in the project.
+
+Check formatting is correct in the web page
+
+Go through and update information to your specific project in the conf.py files, rst files. 
+
+Finalize any changes needed and add information as desired
+
+-------------
+Common Errors
+-------------
+
+Import module issue  - code # : 3221225477
+	If sphinx can't seem to find a module, this issue may be fixed by 
+	adding the module's name to the autodoc_mock_imports list at the bottom of conf.py
+
+Make sure to use `, not ' on data types within doc strings
+example:
+	:obj:`str` instead of :obj:'str',  or  :obj:`str'
+
+Make sure to not use indents after 'returns' for multiline portions in doc strings, follow this example for 
+correct formatting in sphinx doc page:
+
+Correct:
+Returns:
+	(:obj:`list`): Values of the target timestep. If vector, list of lists where each inner list contains an x and y
+	component value.
+		
+Incorrect:
+Returns:
+	(:obj:`list`): Values of the target timestep. If vector, list of lists where each inner list contains an x and y
+		component value.
+		
+
