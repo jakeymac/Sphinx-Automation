@@ -45,6 +45,10 @@ class Main:
 
         self.root.mainloop()
 
+    def check_if_exists(self):
+        print("Dir:")
+        print(os.listdir())
+        print(os.path.exists("RST Output Files"))
     def read_avoid_file(self):
         files = ""
         with open("avoid.txt","r") as file:
@@ -105,6 +109,9 @@ class Main:
             tk_mb.showinfo(message="Error: no source folder chosen")
 
         else:
+            if not os.path.exists("RST Output Files"):
+                os.mkdir(f"{os.getcwd()}/RST Output Files")
+
             current_folder = ""
             current_output = ""
             file_name = ""
@@ -139,3 +146,4 @@ class Main:
 
 
 main = Main()
+main.check_if_exists()
