@@ -7,34 +7,25 @@ Sphinx Documentation Guide
 Getting Started
 ---------------
 
-First, copy the source folder and generate.bat file into a docs folder in 
-your main project/library folder
+Copy the source folder and generate.bat file into a docs folder in your main project/library folder
 
-Next, edit the generate.bat file to make sure it points to your chosen interpreter
-
+Edit the generate.bat file to make sure it points to your chosen interpreter
 
 Run the generate.bat file
 
-Make sure any changes are made to include information to your specific project in the build html files
+Run the sphinx rst automator 
 
-Place folder and file names into a text file - see automation_source_example.txt
+Add new rst file names to index.rst's toc tree
 
-Run the sphinx autodoc text automator 
+Make sure any changes are made to include information to your specific project in the build html files(may need to delete build folder and re-run generate.bat)
 
-Copy and paste the .rst files from the output folder into the doc/source folder in your project. 
-
-Make sure to add those file names to index.rst's toc tree
-
-Make sure to make a few key stroke changes and save the rst files to make sure they get refreshed. 
-	This can even be just a press of the enter button.
-	
 Add :obj: to any data types for args or returns throughout all files in the project.
 
 Check formatting is correct in the web page
 
 Go through and update information to your specific project in the conf.py files, rst files. 
 
-Finalize any changes needed and add information as desired
+Finalize any changes needed and add information as desired to index.rst and getting_started.rst
 
 -------------
 Common Errors
