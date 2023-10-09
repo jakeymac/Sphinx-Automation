@@ -1,0 +1,56 @@
+.. image:: _static/aquaveo.png
+   :height: 35px
+   :width: 250px
+   :align: right
+
+*********
+LIBRARY NAME HERE
+*********
+
+**Last Updated:** INSERT DATE HERE, 2023
+
+The LIBRARY NAME HERE - PROJECT DESCRIPTION HERE
+
+.. figure:: _static/images/projectnamehere.png
+   :scale: 50 %
+   :alt: LIBRARY NAME HERE screenshot
+   :align: center
+
+   This is a sample screenshot of PROJECT NAME HERE being used
+
+
+Contributing
+------------
+
+If you'd like to contribute to the LIBRARY NAME HERE project in XMS, please create a feature branch on the repository on `gitlab <LIBRARY LINK HERE>`_. Once you are ready for your feature to be added simply create a merge request.
+
+The LIBRARY NAME HERE project adheres to a strict flake and formatting policy. Please make sure that all CI actions are passing before creating a merge request.
+
+License
+-------
+
+This project is licensed under the XMS License
+
+Support
+-------
+
+If you encounter any issues or have questions, please open an issue on `GitLab Issues <LIBRARY LINK HERE>`_.
+
+Feedback
+--------
+
+We value your feedback. If you have any suggestions or comments, please feel free to reach out to us at `support@aquaveo.com`.
+
+
+.. toctree::
+   :maxdepth: 3
+   :hidden:
+   :caption: Getting Started
+
+   
+   
+
+Acknowledgements
+================
+
+This library is from work done by aquaveo developers to support other aquaveo libraries.
